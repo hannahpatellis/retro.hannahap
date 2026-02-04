@@ -19,17 +19,31 @@ $request_URL = $domain . $page;
 $html = file_get_contents($request_URL);
 $dom = Dom\HTMLDocument::createFromString($html);
 
-foreach ($dom->getElementsByTagName('style') as $node) {
+// Remove <style> tags
+foreach (iterator_to_array($dom->getElementsByTagName('style')) as $node) {
     $node->parentNode->removeChild($node);
 }
-foreach ($dom->getElementsByTagName('link') as $node) {
+// Remove <link rel=stylesheet> tags
+foreach (iterator_to_array($dom->getElementsByTagName('link')) as $node) {
     if ($node->getAttribute('rel') === 'stylesheet') {
         $node->parentNode->removeChild($node);
     }
 }
-foreach ($dom->getElementsByTagName('script') as $node) {
-    $node->parentNode->removeChild($node);
+// Remove <script> tags
+foreach (iterator_to_array($dom->getElementsByTagName('script')) as $node) {
+    $node->remove();
 }
+// Reformat hrefs in <a> tags if local
+foreach (iterator_to_array($dom->getElementsByTagName('a')) as $node) {
+    $href = $node->getAttribute('href');
+    if (str_starts_with($href, "/")) {
+        $new_href = ltrim($href, '/');
+        $new_href = preg_replace("/\.html$/", "", $new_href);
+        $node->setAttribute("href", "/index.php?p=" . $new_href);    
+    }
+}    
+// Remove div#mobi-menu        
+$dom->getElementById('mobi-nav')->remove();
 
 echo $dom->saveHTML();
 
