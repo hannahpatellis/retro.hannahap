@@ -1,5 +1,5 @@
 <?php
 
-header('Location: /go/index.php');
+print("Hello world!");
 
 ?>
