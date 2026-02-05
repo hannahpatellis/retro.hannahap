@@ -45,10 +45,13 @@ print("Before reduce");
 print("Before save");
 
     // Save as GIF
-    imagegif($image, "/var/www/fs.hannahap/retro-cache/images/");
+    // imagegif($image, $cachePath);
+    imagegif($image, "/var/www/fs.hannahap/retro-cache/images");
     imagedestroy($image);
     
-    return '/var/www/fs.hannahap/retro-cache/images/' . $cacheFilename;
+    // return '/var/www/fs.hannahap/retro-cache/images/' . $cacheFilename;
+
+    return '/var/www/fs.hannahap/retro-cache/images/' . $filename . '.gif';
 }
 
 $result = getRetroImage("/images/zines/petfurpalace_full.jpeg");
