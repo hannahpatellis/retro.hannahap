@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 function getRetroImage($originalPath) {
     $filename = basename($originalPath);
     $originalFile = "/var/www/hannahap/public" . $originalPath;
@@ -15,11 +18,15 @@ function getRetroImage($originalPath) {
     //     return '/retro-cache/images/' . $cacheFilename;
     // }
     
+    print("Before convert");
+
     // Convert image
     $image = imagecreatefromstring(file_get_contents($originalFile));
     $width = imagesx($image);
     $height = imagesy($image);
     
+print("Before resize");
+
     // Resize if needed (max 640px wide)
     if ($width > 640) {
         $newWidth = 640;
@@ -30,9 +37,13 @@ function getRetroImage($originalPath) {
         $image = $resized;
     }
     
+print("Before reduce");
+
     // Reduce to 256 colors
     imagetruecolortopalette($image, true, 256);
     
+print("Before save");
+
     // Save as GIF
     imagegif($image, $cachePath);
     imagedestroy($image);
@@ -42,6 +53,6 @@ function getRetroImage($originalPath) {
 
 $result = getRetroImage("/images/zines/petfurpalace_full.jpeg");
 
-print_r($result);
+print($result);
 
 ?>
