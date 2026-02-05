@@ -46,7 +46,7 @@ print("Before save");
 
     // Save as GIF
     // imagegif($image, $cachePath);
-    imagegif($image, "/var/www/fs.hannahap/retro-cache/images");
+    imagegif($image, "/var/www/fs.hannahap/retro-cache/images" . $filename . '.gif');
     imagedestroy($image);
     
     // return '/var/www/fs.hannahap/retro-cache/images/' . $cacheFilename;
