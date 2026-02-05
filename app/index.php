@@ -3,6 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+require_once __DIR__ . '/api/retroImageProcess.php';
+
 $cache_images = __DIR__ . '/../../fs.hannahap/retro-cache/images/';
 $cache_pages = __DIR__ . '/../../fs.hannahap/retro-cache/pages/';
 
@@ -44,6 +46,18 @@ foreach (iterator_to_array($dom->getElementsByTagName('a')) as $node) {
 }    
 // Remove div#mobi-menu        
 $dom->getElementById('mobi-nav')->remove();
+// Process <img> tags
+foreach ($dom->getElementsByTagName('img') as $img) {
+    $src = $img->getAttribute('src');
+    $retroSrc = retroImageProcess($src);
+    $img->setAttribute('src', $retroSrc);
+    
+    // Strip modern attributes
+    $img->removeAttribute('srcset');
+    $img->removeAttribute('loading');
+    $img->removeAttribute('width');
+    $img->removeAttribute('height');
+}
 
 echo $dom->saveHTML();
 
