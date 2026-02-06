@@ -2,8 +2,7 @@ env.json
 app/composer.phar
 app/vendor/
 app/env.json
-
-retro-cache/
+app/retro-cache/
 
 # General
 .DS_Store
