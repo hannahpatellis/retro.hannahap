@@ -19,10 +19,7 @@ function retroImageProcess($originalPath, $altImages) {
     $ext = strtolower(pathinfo($originalFile, PATHINFO_EXTENSION));
     if ($ext === 'svg') {
         foreach ($altImages as $name) {
-            print_r($name);
-            print_r($originalFile);
-            if ($name == $originalFile) {
-                print("Confirmed");
+            if ($name == $filename.'.svg') {
                 return 'http://retro.hannahap.com/retro-cache/images/' . $filename . '.gif';
             }
         }
