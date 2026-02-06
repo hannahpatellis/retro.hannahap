@@ -2,6 +2,10 @@
 
 print_r($_GET['page']);
 
-// header('Location: /retroify.php?page=' . $_GET['page'] ?? "index");
+$page = $_GET['page'] ?? "index";
+
+print_r($page);
+
+// header('Location: /retroify.php?page=' . $page);
 
 ?>
