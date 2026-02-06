@@ -34,10 +34,10 @@ function retroImageProcess($originalPath, $altImages) {
     $width = imagesx($image);
     $height = imagesy($image);
 
-    // Resize if needed (max 400px wide)
-    if ($width > 400) {
-        $newWidth = 400;
-        $newHeight = (int)($height * (400 / $width));
+    // Resize if needed (max 300px wide)
+    if ($width > 300) {
+        $newWidth = 300;
+        $newHeight = (int)($height * (300 / $width));
         $resized = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
         $image = $resized;
