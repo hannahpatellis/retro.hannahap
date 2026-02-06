@@ -26,7 +26,7 @@ function retroImageProcess($originalPath) {
     $width = imagesx($image);
     $height = imagesy($image);
 
-    // Resize if needed (max 640px wide)
+    // Resize if needed (max 400px wide)
     if ($width > 400) {
         $newWidth = 400;
         $newHeight = (int)($height * (400 / $width));
