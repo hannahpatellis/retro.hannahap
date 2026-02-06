@@ -41,11 +41,11 @@ function retroImageProcess($originalPath) {
 
     // Save as GIF
     // imagegif($image, $cachePath); <- for caching
-    imagegif($image, "/var/www/fs.hannahap/retro-cache/images/" . $filename . '.gif');
+    imagegif($image, __DIR__ . "/retro-cache/image/" . $filename . ".gif");
     imagedestroy($image);
     
     // return '/var/www/fs.hannahap/retro-cache/images/' . $cacheFilename; <- for caching
-    return '/var/www/fs.hannahap/retro-cache/images/' . $filename . '.gif';
+    return 'http://retro.hannahap.com/retro-cache/images/' . $filename . '.gif';
 }
 
 ?>
