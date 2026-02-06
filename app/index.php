@@ -7,6 +7,7 @@ require_once __DIR__ . '/api/retroImageProcess.php';
 
 $cache_images = __DIR__ . '/retro-cache/images/';
 $cache_pages = __DIR__ . '/retro-cache/pages/';
+$altImages = array("logo.svg", "flickr.svg", "github.svg", "instagram.svg", "linkedin.svg", "mastodon.svg", "paypal.svg", "youtube.svg", "COSMO-mono.svg");
 
 $domain = "https://hannahap.com/";
 $page = $_GET['p'] ?? "index";
@@ -49,7 +50,7 @@ $dom->getElementById('mobi-nav')->remove();
 // Process <img> tags
 foreach ($dom->getElementsByTagName('img') as $img) {
     $src = $img->getAttribute('src');
-    $retroSrc = retroImageProcess($src);
+    $retroSrc = retroImageProcess($src, $altImages);
     $img->setAttribute('src', $retroSrc);
     // Strip modern attributes
     $img->removeAttribute('srcset');

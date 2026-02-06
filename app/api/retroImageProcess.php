@@ -1,6 +1,6 @@
 <?php
 
-function retroImageProcess($originalPath) {
+function retroImageProcess($originalPath, $altImages) {
     $filename = basename($originalPath);
     $originalFile = "/var/www/hannahap/public" . $originalPath;
     
@@ -18,6 +18,11 @@ function retroImageProcess($originalPath) {
     // Skips SVG files
     $ext = strtolower(pathinfo($originalFile, PATHINFO_EXTENSION));
     if ($ext === 'svg') {
+        foreach ($altImages as $name) {
+            if ($name === $originalFile) {
+                return 'http://retro.hannahap.com/retro-cache/images/' . $filename . '.gif';
+            }
+        }
         return $originalPath;
     }
 
