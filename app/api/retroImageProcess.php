@@ -26,7 +26,7 @@ function retroImageProcess($originalPath, $altImages) {
                 return 'http://retro.hannahap.com/retro-cache/images/' . pathinfo($filename, PATHINFO_FILENAME) . '.gif';
             }
         }
-        return $originalPath;
+        return null;
     }
 
     // Convert image

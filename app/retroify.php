@@ -27,16 +27,19 @@ $dom = Dom\HTMLDocument::createFromString($html);
 foreach (iterator_to_array($dom->getElementsByTagName('style')) as $node) {
     $node->parentNode->removeChild($node);
 }
+
 // Remove <link rel=stylesheet> tags
 foreach (iterator_to_array($dom->getElementsByTagName('link')) as $node) {
     if ($node->getAttribute('rel') === 'stylesheet') {
         $node->parentNode->removeChild($node);
     }
 }
+
 // Remove <script> tags
 foreach (iterator_to_array($dom->getElementsByTagName('script')) as $node) {
     $node->remove();
 }
+
 // Reformat hrefs in <a> tags if local
 foreach (iterator_to_array($dom->getElementsByTagName('a')) as $node) {
     $href = $node->getAttribute('href');
@@ -46,18 +49,57 @@ foreach (iterator_to_array($dom->getElementsByTagName('a')) as $node) {
         $node->setAttribute("href", "/retroify.php?page=" . $new_href);    
     }
 }    
+
 // Remove div#mobi-menu        
 $dom->getElementById('mobi-nav')->remove();
+
 // Process <img> tags
 foreach ($dom->getElementsByTagName('img') as $img) {
     $src = $img->getAttribute('src');
     $retroSrc = retroImageProcess($src, $altImages);
-    $img->setAttribute('src', $retroSrc);
-    // Strip modern attributes
-    $img->removeAttribute('srcset');
-    $img->removeAttribute('loading');
-    $img->removeAttribute('width');
-    $img->removeAttribute('height');
+    
+    if ($retroSrc === null) {
+        $img->remove();
+    } else {
+        $img->setAttribute('src', $retroSrc);
+        $img->removeAttribute('srcset');
+        $img->removeAttribute('loading');
+        $img->removeAttribute('width');
+        $img->removeAttribute('height');
+    }
+}
+
+// Convert semantic HTML5 tags to divs
+$semanticTags = ['main', 'article', 'aside', 'section', 'nav', 'footer'];
+foreach ($semanticTags as $tagName) {
+    foreach (iterator_to_array($dom->getElementsByTagName($tagName)) as $node) {
+        $div = $dom->createElement('div');
+        foreach ($node->attributes as $attr) {
+            $div->setAttribute($attr->name, $attr->value);
+        }
+        while ($node->firstChild) {
+            $div->appendChild($node->firstChild);
+        }
+        $node->parentNode->replaceChild($div, $node);
+    }
+}
+
+// Convert em to i
+foreach (iterator_to_array($dom->getElementsByTagName('em')) as $node) {
+    $i = $dom->createElement('i');
+    while ($node->firstChild) {
+        $i->appendChild($node->firstChild);
+    }
+    $node->parentNode->replaceChild($i, $node);
+}
+
+// Convert strong to b
+foreach (iterator_to_array($dom->getElementsByTagName('strong')) as $node) {
+    $b = $dom->createElement('b');
+    while ($node->firstChild) {
+        $b->appendChild($node->firstChild);
+    }
+    $node->parentNode->replaceChild($b, $node);
 }
 
 echo $dom->saveHTML();
