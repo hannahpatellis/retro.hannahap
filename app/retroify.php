@@ -14,12 +14,11 @@ $page = $_GET['page'] ?? "index";
 $page = $page . ".html";
 $request_URL = $domain . $page;
 
-print_r($request_URL);
-
-if (!file_exists($request_URL)) {
-    header("HTTP/1.0 404 Not Found");
-    die("Page not found");
-}
+// Doesn't work
+// if (!file_exists($request_URL)) {
+//     header("HTTP/1.0 404 Not Found");
+//     die("Page not found");
+// }
 
 $html = file_get_contents($request_URL);
 $dom = Dom\HTMLDocument::createFromString($html);
