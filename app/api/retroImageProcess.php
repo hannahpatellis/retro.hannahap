@@ -15,6 +15,12 @@ function retroImageProcess($originalPath) {
     //     return '/retro-cache/images/' . $cacheFilename;
     // }
 
+    // Skips SVG files
+    $ext = strtolower(pathinfo($originalFile, PATHINFO_EXTENSION));
+    if ($ext === 'svg') {
+        return $originalPath;
+    }
+
     // Convert image
     $image = imagecreatefromstring(file_get_contents($originalFile));
     $width = imagesx($image);
