@@ -27,9 +27,9 @@ function retroImageProcess($originalPath) {
     $height = imagesy($image);
 
     // Resize if needed (max 640px wide)
-    if ($width > 640) {
-        $newWidth = 640;
-        $newHeight = (int)($height * (640 / $width));
+    if ($width > 400) {
+        $newWidth = 400;
+        $newHeight = (int)($height * (400 / $width));
         $resized = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
         $image = $resized;
