@@ -18,10 +18,10 @@ function retroImageProcess($originalPath, $altImages) {
     // Skips SVG files
     $ext = strtolower(pathinfo($originalFile, PATHINFO_EXTENSION));
     if ($ext === 'svg') {
-        print("Found SVG");
         foreach ($altImages as $name) {
             print("Found file");
-            if ($name === $originalFile) {
+            if ($name == $originalFile) {
+                print("Confirmed");
                 return 'http://retro.hannahap.com/retro-cache/images/' . $filename . '.gif';
             }
         }
