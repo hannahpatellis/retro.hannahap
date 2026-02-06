@@ -32,7 +32,6 @@ function retroImageProcess($originalPath) {
         $newHeight = (int)($height * (640 / $width));
         $resized = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-        imagedestroy($image);
         $image = $resized;
     }
 
@@ -42,7 +41,6 @@ function retroImageProcess($originalPath) {
     // Save as GIF
     // imagegif($image, $cachePath); <- for caching
     imagegif($image, "/var/www/retro.hannahap/app/retro-cache/images/" . $filename . ".gif");
-    imagedestroy($image);
     
     // return '/var/www/fs.hannahap/retro-cache/images/' . $cacheFilename; <- for caching
     return 'http://retro.hannahap.com/retro-cache/images/' . $filename . '.gif';
