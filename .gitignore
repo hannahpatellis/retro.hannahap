@@ -3,6 +3,8 @@ app/composer.phar
 app/vendor/
 app/env.json
 
+retro-cache/
+
 # General
 .DS_Store
 .AppleDouble
