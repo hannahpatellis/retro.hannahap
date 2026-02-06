@@ -41,7 +41,7 @@ function retroImageProcess($originalPath) {
 
     // Save as GIF
     // imagegif($image, $cachePath); <- for caching
-    imagegif($image, __DIR__ . "/../retro-cache/image/" . $filename . ".gif");
+    imagegif($image, "/var/www/retro.hannahap/app/retro-cache/images/" . $filename . ".gif");
     imagedestroy($image);
     
     // return '/var/www/fs.hannahap/retro-cache/images/' . $cacheFilename; <- for caching
