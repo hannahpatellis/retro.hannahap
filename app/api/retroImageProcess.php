@@ -20,9 +20,10 @@ function retroImageProcess($originalPath, $altImages) {
     if ($ext === 'svg') {
         foreach ($altImages as $name) {
             print_r($name);
-            print_r($filename.'.svg');
-            if ($name === $filename.'.svg') {
-                return 'http://retro.hannahap.com/retro-cache/images/' . $filename . '.gif';
+            print_r($filename);
+            print_r(pathinfo($filename, PATHINFO_FILENAME));
+            if ($name === $filename) {
+                return 'http://retro.hannahap.com/retro-cache/images/' . pathinfo($filename, PATHINFO_FILENAME) . '.gif';
             }
         }
         return $originalPath;
