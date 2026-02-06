@@ -2,7 +2,12 @@
 
 function retroImageProcess($originalPath, $altImages) {
     $filename = basename($originalPath);
-    $originalFile = "/var/www/hannahap/public" . $originalPath;
+    if (str_starts_with($originalPath, 'http://') || str_starts_with($originalPath, 'https://')) {
+        $originalFile = $originalPath;
+    }
+    if (str_starts_with($originalPath, '/')) {
+        $originalFile = "/var/www/hannahap/public" . $originalPath;
+    }
     
     // if (!file_exists($originalFile)) return $originalPath;
     
