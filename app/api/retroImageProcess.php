@@ -26,7 +26,7 @@ function retroImageProcess($originalPath, $altImages) {
                 return 'http://retro.hannahap.com/retro-cache/images/' . pathinfo($filename, PATHINFO_FILENAME) . '.gif';
             }
         }
-        return null;
+        return $originalPath;
     }
 
     // Convert image
@@ -34,37 +34,15 @@ function retroImageProcess($originalPath, $altImages) {
     $width = imagesx($image);
     $height = imagesy($image);
 
-    /* // Resize if needed (max 300px wide)
+    // Resize if needed (max 300px wide)
     if ($width > 300) {
         $newWidth = 300;
         $newHeight = (int)($height * (300 / $width));
         $resized = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
         $image = $resized;
-    } */
-
-    
-    if ($width > 300) {
-        $newWidth = 300;
-        $newHeight = (int)($height * (300 / $width));
-        $resized = imagecreatetruecolor($newWidth, $newHeight);
-    
-        // Fill with white
-        $white = imagecolorallocate($resized, 255, 255, 255);
-        imagefill($resized, 0, 0, $white);
-    
-        // Copy with the white background
-        imagecopyresampled($resized, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-        $image = $resized;
-    } else {
-        // Even if not resizing, handle transparency
-        $temp = imagecreatetruecolor($width, $height);
-        $white = imagecolorallocate($temp, 255, 255, 255);
-        imagefill($temp, 0, 0, $white);
-        imagecopy($temp, $image, 0, 0, 0, 0, $width, $height);
-        $image = $temp;
     }
-    
+
     // Reduce to 256 colors
     imagetruecolortopalette($image, true, 256);
 
