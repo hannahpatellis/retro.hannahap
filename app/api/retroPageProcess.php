@@ -31,7 +31,7 @@ function retroPageProcess($dom, $altImages, $site) {
     // Process <img> tags
     foreach ($dom->getElementsByTagName('img') as $img) {
         $src = $img->getAttribute('src');
-        $retroSrc = retroImageProcess($src, $altImages);
+        $retroSrc = retroImageProcess($src, $altImages, $site);
         $img->setAttribute('src', $retroSrc);
         // Strip modern attributes
         $img->removeAttribute('srcset');

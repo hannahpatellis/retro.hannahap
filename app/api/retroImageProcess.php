@@ -1,10 +1,14 @@
 <?php
 
-function retroImageProcess($originalPath, $altImages) {
+function retroImageProcess($originalPath, $altImages, $site) {
     $filename = basename($originalPath);
     $originalFile = $originalPath;
     if (str_starts_with($originalPath, '/')) {
-        $originalFile = "/var/www/hannahap/public" . $originalPath;
+        if($site === 'blog') {
+            $originalFile = "/var/www/blog.hannahap" . $originalPath;
+        } elseif ($site === 'home') {
+            $originalFile = "/var/www/hannahap/public" . $originalPath;
+        }
     }
     
     // if (!file_exists($originalFile)) return $originalPath;
