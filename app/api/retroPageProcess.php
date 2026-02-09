@@ -20,8 +20,12 @@ function retroPageProcess($dom, $altImages, $site) {
         $href = $node->getAttribute('href');
         if (str_starts_with($href, "/")) {
             $new_href = ltrim($href, '/');
-            $new_href = preg_replace("/\.html$/", "", $new_href);
-            $node->setAttribute("href", "/retroify.php?page=" . $new_href);    
+            if($site === 'blog') {
+                $node->setAttribute("href", "/retroify.php?site=blog&page=" . $new_href);    
+            } elseif ($site === 'home') {
+                $new_href = preg_replace("/\.html$/", "", $new_href);
+                $node->setAttribute("href", "/retroify.php?site=home&page=" . $new_href); 
+            }
         }
     }    
     // Remove div#mobi-menu    
