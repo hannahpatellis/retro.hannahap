@@ -18,7 +18,16 @@ function retroPageProcess($dom, $altImages, $site) {
     // Reformat hrefs in <a> tags if local
     foreach (iterator_to_array($dom->getElementsByTagName('a')) as $node) {
         $href = $node->getAttribute('href');
-        if (str_starts_with($href, "/")) {
+        if (str_starts_with($href, "https://blog.hannahap.com")) {
+            $new_href = ltrim($href, 'https://blog.hannahap.com/');
+            $node->setAttribute("href", "/retroify.php?site=blog&page=" . $new_href);
+        }
+        elseif (str_starts_with($href, "https://hannahap.com")) {
+            $new_href = ltrim($href, 'https://hannahap.com/');
+            $new_href = preg_replace("/\.html$/", "", $new_href);
+            $node->setAttribute("href", "/retroify.php?site=home&page=" . $new_href);
+        }
+        elseif (str_starts_with($href, "/")) {
             $new_href = ltrim($href, '/');
             if($site === 'blog') {
                 $node->setAttribute("href", "/retroify.php?site=blog&page=" . $new_href);    
