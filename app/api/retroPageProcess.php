@@ -19,7 +19,7 @@ function retroPageProcess($dom, $altImages, $site) {
     foreach (iterator_to_array($dom->getElementsByTagName('a')) as $node) {
         $href = $node->getAttribute('href');
         if (str_starts_with($href, "https://blog.hannahap.com")) {
-            $new_href = ltrim($href, 'https://blog.hannahap.com/');
+            $new_href = str_replace('https://blog.hannahap.com/', '', $href);
             $node->setAttribute("href", "/retroify.php?site=blog&page=" . $new_href);
         }
         elseif (str_starts_with($href, "https://hannahap.com")) {
