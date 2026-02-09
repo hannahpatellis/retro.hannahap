@@ -23,7 +23,7 @@ function retroPageProcess($dom, $altImages, $site) {
             $node->setAttribute("href", "/retroify.php?site=blog&page=" . $new_href);
         }
         elseif (str_starts_with($href, "https://hannahap.com")) {
-            $new_href = ltrim($href, 'https://hannahap.com/');
+            $new_href = str_replace('https://hannahap.com/', '', $href);
             $new_href = preg_replace("/\.html$/", "", $new_href);
             $node->setAttribute("href", "/retroify.php?site=home&page=" . $new_href);
         }
